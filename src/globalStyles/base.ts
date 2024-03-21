@@ -1,5 +1,5 @@
 export const base = `
-    *, *::before, **:after {
+    *, *::before, *::after {
         box-sizing: border-box;
     }
 

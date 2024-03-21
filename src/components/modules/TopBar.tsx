@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import Button from '@src/components/controles/Button.tsx'
 
@@ -13,8 +13,8 @@ const TopBarComp = ({ className }: TopBarProps) => {
             <div className="top-bar__content">
                 <a className='top-bar__logo'>Task Master</a>
                 <nav className="top-bar__nav-left">
-                    <Button color="secondary" component="a">Login</Button>
-                    <Button color="secondary">Signup</Button>
+                    <Button component="a">Login</Button>
+                    <Button component="a">Signup</Button>
                 </nav>
             </div>
         </div>
@@ -23,11 +23,11 @@ const TopBarComp = ({ className }: TopBarProps) => {
 
 const TopBar = styled(TopBarComp)`
     background-color: ${({theme}) => theme.colors.primary.main};
-    padding: ${({ theme }) => theme.spacing[2]}px ${({theme}) => theme.spacing.large}px;
+    padding: ${({ theme }) => theme.spacing[4]}px ${({theme}) => theme.spacing.large}px;
     .top-bar {
         &__content {
             display: flex;
-            align-items: center;
+            align-items: center;            
         }
         &__logo {
             display: inline-block;
@@ -38,6 +38,9 @@ const TopBar = styled(TopBarComp)`
         &__nav-left {
             margin-left: auto;
         }
+    }
+    ${Button}{
+        color: ${({ theme }) => theme.colors.type.onDark};
     }
 
 `

@@ -4,7 +4,7 @@ export default (isDark: boolean) => ({
         primary: {
             main: "#4F5D2F",
             dark: "#2E361B",
-            light: "687A3E"
+            light: "#687A3E"
         },
         secondary: {
             main: "#628395",
@@ -30,7 +30,8 @@ export default (isDark: boolean) => ({
             main: "#000",
             secondary: "#686868",
             onDark: "#fff",
-        }
+        },
+        error: { main: "#e60000" }
     },
     spacing: {
         "1": 4,
@@ -45,4 +46,4 @@ export default (isDark: boolean) => ({
         main: 24,
         large: 32
     }
-});
+})

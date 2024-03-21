@@ -1,13 +1,12 @@
 import React from 'react'
-import IntroLayout from '@src/components/layouts/IntroLayout.tsx'
+import {
+    RouterProvider,
+} from "react-router-dom";
+import mainRouter from "@src/mainRouter.tsx"
 
 const App = () => {
     return (
-        <IntroLayout>
-            <div>
-                <h1>Hola All!</h1>
-            </div>
-        </IntroLayout>
+        <RouterProvider router={mainRouter} />
     )
 }
 

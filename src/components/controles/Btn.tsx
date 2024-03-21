@@ -1,49 +1,42 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
-import {RefreshCw} from "react-feather"
+import styled, {keyframes} from 'styled-components'
+import { RefreshCw } from "react-feather"
 
-type componentType = "a" | "button"
+interface getColorProps {
+    color?: "primary" | "secondary",
+    theme?: any,
+}
 
-interface buttonBaseProps {
+type btnProps<t extends React.ElementType> = {
+    component?: t | "a" | "button",
     children?: React.ReactNode,
     className?: string,
     color?: "primary" | "secondary",
-    component?: componentType,
     loading?: boolean,
     theme?: any,
     variant?: string,
     forwardedRef?: React.ForwardedRef<Element> | null,
     disabled?: boolean
-}
+} & React.ComponentPropsWithoutRef<t>
 
-interface aProps extends buttonBaseProps {
-    href?: string,
-    target?: string
-}
-interface buttonProps extends buttonBaseProps {
-    type?: string
-}
-
-const ButtonBase = <t extends buttonBaseProps>({ 
+const BtnComp = <t extends React.ElementType = "button",>({
+    component="button",
     children,
     className,
-    component = "button",
     color = "primary",
     loading,
     variant,
     ...others
-}: t) => {
+}: btnProps<t>) => {
     let Component = component
     let classes = ""
 
-    if(variant === "contained"){
+    if (variant === "contained") {
         classes = "button--contained"
     }
 
-    const props = others
-
     return (
-        <div className={ className }>
+        <div className={className}>
             <Component className={classes} {...others}>
                 {children}
             </Component>
@@ -52,26 +45,8 @@ const ButtonBase = <t extends buttonBaseProps>({
     )
 }
 
-const ButtonComp = React.forwardRef((
-    { component = "button", ...others }: buttonProps | aProps, 
-    ref: React.ForwardedRef<Element>
-) => {
-    const props = {
-        component,
-        ...others
-    }
-    if (ref) props.forwardedRef = ref
-
-    if (component === "a") {
-        return <ButtonBase<aProps> {...props} />
-    } else if (component === "button") {
-        return <ButtonBase<buttonProps> {...props} />
-    }
-
-})
-
-const getColor = ({ color = "primary", theme }: buttonProps, type: string = "main"): string => {
-    if (color && theme?.colors[color][type]) return theme.colors[color][type] 
+const getColor = ({ color = "primary", theme }: getColorProps, type: string = "main"): string => {
+    if (color && theme?.colors[color][type]) return theme.colors[color][type]
     return theme.colors.primary.main
 }
 
@@ -80,7 +55,7 @@ const rotate = keyframes`
   to {transform: rotate(360deg)}
 `;
 
-const Button = styled(ButtonComp)`
+const Btn = styled(BtnComp)`
     color: ${getColor};
     display: inline-flex;
     position: relative;
@@ -92,12 +67,13 @@ const Button = styled(ButtonComp)`
         outline: none;
         background: transparent;
         border: none;
-        padding: ${({ theme }) => theme.spacing[2]}px ${({theme}) => theme.spacing.small}px;
+        padding: ${({ theme }) => theme.spacing[2]}px ${({ theme }) => theme.spacing.small}px;
         cursor: pointer;    
         position: relative;
         z-index: 1;
         overflow: hidden;
         vertical-align: middle;
+        text-decoration: none;
         &::before {
             display: block;
             content: "";
@@ -143,4 +119,4 @@ const Button = styled(ButtonComp)`
     }
 `
 
-export default Button
+export default Btn
